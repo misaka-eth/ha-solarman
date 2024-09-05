@@ -1,0 +1,878 @@
+default:
+  update_interval: 10
+  digits: 6
+
+parameters:
+  - group: PV
+    items:
+      - name: "PV1 Power"
+        class: "power"
+        state_class: "measurement"
+        uom: "W"
+        scale: 1
+        rule: 1
+        registers: [0x00BA]
+        icon: "mdi:solar-power-variant"
+
+      - name: "PV2 Power"
+        class: "power"
+        state_class: "measurement"
+        uom: "W"
+        scale: 1
+        rule: 1
+        registers: [0x00BB]
+        icon: "mdi:solar-power-variant"
+
+      - name: "PV1 Voltage"
+        class: "voltage"
+        state_class: "measurement"
+        uom: "V"
+        scale: 0.1
+        rule: 1
+        registers: [0x006D]
+        icon: "mdi:solar-power-variant"
+
+      - name: "PV2 Voltage"
+        class: "voltage"
+        state_class: "measurement"
+        uom: "V"
+        scale: 0.1
+        rule: 1
+        registers: [0x006F]
+        icon: "mdi:solar-power-variant"
+
+      - name: "PV1 Current"
+        class: "current"
+        uom: "A"
+        scale: 0.1
+        rule: 1
+        registers: [0x006E]
+        icon: "mdi:solar-power-variant"
+
+      - name: "PV2 Current"
+        class: "current"
+        state_class: "measurement"
+        uom: "A"
+        scale: 0.1
+        rule: 1
+        registers: [0x0070]
+        icon: "mdi:solar-power-variant"
+
+      - name: "Today Production"
+        friendly_name: Today's Production
+        class: "energy"
+        state_class: "measurement"
+        uom: "kWh"
+        scale: 0.1
+        rule: 1
+        registers: [0x006C]
+        icon: "mdi:solar-power"
+
+      - name: "Total Production"
+        class: "energy"
+        state_class: "total_increasing"
+        uom: "kWh"
+        scale: 0.1
+        rule: 3
+        registers: [0x0060, 0x0061]
+        icon: "mdi:solar-power"
+
+      - name: "Micro-inverter Power"
+        class: "power"
+        state_class: "measurement"
+        uom: "W"
+        scale: 1
+        rule: 1
+        registers: [0x00A6]
+        icon: "mdi:solar-power"
+
+  - group: Battery
+    items:
+      - name: "Total Battery Charge"
+        class: "energy"
+        state_class: "total_increasing"
+        uom: "kWh"
+        scale: 0.1
+        rule: 3
+        registers: [0x0048, 0x0049]
+        icon: "mdi:battery-plus"
+
+      - name: "Total Battery Discharge"
+        class: "energy"
+        state_class: "total_increasing"
+        uom: "kWh"
+        scale: 0.1
+        rule: 3
+        registers: [0x004A, 0x004B]
+        icon: "mdi:battery-minus"
+
+      - name: "Today Battery Charge"
+        friendly_name: Today's Battery Charge
+        class: "energy"
+        state_class: "total_increasing"
+        uom: "kWh"
+        scale: 0.1
+        rule: 1
+        registers: [0x0046]
+        icon: "mdi:battery-plus"
+
+      - name: "Today Battery Discharge"
+        friendly_name: Today's Battery Discharge
+        class: "energy"
+        state_class: "total_increasing"
+        uom: "kWh"
+        scale: 0.1
+        rule: 1
+        registers: [0x0047]
+        icon: "mdi:battery-minus"
+
+      - name: "Battery State"
+        class: "enum"
+        state_class: ""
+        uom: ""
+        scale: 1
+        rule: 1
+        registers: [0x00BD]
+        lookup:
+          - key: 0
+            value: "charging"
+          - key: 1
+            value: "idle"
+          - key: 2
+            value: "discharging"
+        icon: "mdi:battery"
+
+      - name: "Battery Power"
+        class: "power"
+        state_class: "measurement"
+        uom: "W"
+        scale: 1
+        rule: 2
+        registers: [0x00BE]
+
+      - name: "Battery Voltage"
+        class: "voltage"
+        state_class: "measurement"
+        uom: "V"
+        scale: 0.01
+        rule: 1
+        registers: [0x00B7]
+
+      - name: "Battery"
+        class: "battery"
+        state_class: "measurement"
+        uom: "%"
+        scale: 1
+        rule: 1
+        registers: [0x00B8]
+
+      - name: "Battery Current"
+        class: "current"
+        state_class: "measurement"
+        uom: "A"
+        scale: 0.01
+        rule: 2
+        registers: [0x00BF]
+
+      - name: "Battery Temperature"
+        class: "temperature"
+        state_class: "measurement"
+        uom: "°C"
+        scale: 0.1
+        rule: 1
+        offset: 1000
+        registers: [0x00B6]
+
+  - group: Grid
+    items:
+      - name: "Grid Power"
+        class: "power"
+        state_class: "measurement"
+        uom: "W"
+        scale: 1
+        rule: 2
+        registers: [0x00A9]
+        icon: "mdi:transmission-tower"
+
+      - name: "Grid Voltage L1"
+        class: "voltage"
+        state_class: "measurement"
+        uom: "V"
+        scale: 0.1
+        rule: 1
+        registers: [0x0096]
+        icon: "mdi:transmission-tower"
+
+      - name: "Grid Current L1"
+        class: "current"
+        state_class: "measurement"
+        uom: "A"
+        scale: 0.01
+        rule: 1
+        registers: [0x00A0]
+        icon: "mdi:transmission-tower"
+
+      - name: "Grid Voltage L2"
+        class: "voltage"
+        state_class: "measurement"
+        uom: "V"
+        scale: 0.1
+        rule: 1
+        registers: [0x0097]
+        icon: "mdi:transmission-tower"
+
+      - name: "Grid Current L2"
+        class: "current"
+        state_class: "measurement"
+        uom: "A"
+        scale: 0.01
+        rule: 1
+        registers: [0x00A1]
+        icon: "mdi:transmission-tower"
+
+      - name: "Internal CT1 Power"
+        class: "power"
+        state_class: "measurement"
+        uom: "W"
+        scale: 1
+        rule: 2
+        registers: [0x00A7]
+        icon: "mdi:transmission-tower"
+
+      - name: "Internal CT2 Power"
+        class: "power"
+        state_class: "measurement"
+        uom: "W"
+        scale: 1
+        rule: 2
+        registers: [0x00A8]
+        icon: "mdi:transmission-tower"
+
+      - name: "External CT1 Power"
+        class: "power"
+        state_class: "measurement"
+        uom: "W"
+        scale: 1
+        rule: 2
+        registers: [0x00AA]
+        icon: "mdi:transmission-tower"
+
+      - name: "External CT2 Power"
+        class: "power"
+        state_class: "measurement"
+        uom: "W"
+        scale: 1
+        rule: 2
+        registers: [0x00AB]
+        icon: "mdi:transmission-tower"
+
+      - name: Today Energy Import
+        alt: Today Energy Bought
+        friendly_name: Today's Energy Import
+        class: "energy"
+        state_class: "total_increasing"
+        uom: "kWh"
+        scale: 0.1
+        rule: 1
+        registers: [0x004C]
+        icon: "mdi:transmission-tower-export"
+
+      - name: Total Energy Import
+        alt: Total Energy Bought
+        class: "energy"
+        state_class: "total_increasing"
+        uom: "kWh"
+        scale: 0.1
+        rule: 1
+        registers: [0x004E, 0x0050]
+        icon: "mdi:transmission-tower-export"
+
+      - name: Today Energy Export
+        alt: Today Energy Sold
+        friendly_name: Today's Energy Export
+        class: "energy"
+        state_class: "total_increasing"
+        uom: "kWh"
+        scale: 0.1
+        rule: 1
+        registers: [0x004D]
+        icon: "mdi:transmission-tower-import"
+
+      - name: Total Energy Export
+        alt: Total Energy Sold
+        class: "energy"
+        state_class: "total_increasing"
+        uom: "kWh"
+        scale: 0.1
+        rule: 3
+        registers: [0x0051, 0x0052]
+        icon: "mdi:transmission-tower-import"
+
+      - name: "Total Grid Production"
+        class: "energy"
+        state_class: "total_increasing"
+        uom: "kWh"
+        scale: 0.1
+        rule: 4
+        registers: [0x003F, 0x0040]
+        icon: "mdi:transmission-tower"
+
+  - group: Upload
+    items:
+      - name: "Load Power"
+        class: "power"
+        state_class: "measurement"
+        uom: "W"
+        scale: 1
+        rule: 1
+        registers: [0x00B2]
+
+      - name: "Load L1 Power"
+        class: "power"
+        state_class: "measurement"
+        uom: "W"
+        scale: 1
+        rule: 1
+        registers: [0x00B0]
+
+      - name: "Load L2 Power"
+        class: "power"
+        state_class: "measurement"
+        uom: "W"
+        scale: 1
+        rule: 1
+        registers: [0x00B1]
+
+      - name: "Load Voltage"
+        class: "voltage"
+        state_class: "measurement"
+        uom: "V"
+        scale: 0.1
+        rule: 1
+        registers: [0x009D]
+
+      - name: "Today Load Consumption"
+        friendly_name: Today's Load Consumption
+        class: "energy"
+        state_class: "total_increasing"
+        uom: "kWh"
+        scale: 0.1
+        rule: 1
+        registers: [0x0054]
+
+      - name: "Total Load Consumption"
+        class: "energy"
+        state_class: "total_increasing"
+        uom: "kWh"
+        scale: 0.1
+        rule: 3
+        registers: [0x0055, 0x0056]
+
+      - name: "SmartLoad"
+        update_interval: 30
+        platform: "binary_sensor"
+        device_class: power
+        state_class: ""
+        uom: ""
+        rule: 1
+        registers: [0x00C3]
+        bit: 3
+        icon: "mdi:lightning-bolt-circle"
+
+  - group: Device
+    items:
+      # Device - Operating (Running) state
+      - name: "Device State"
+        update_interval: 30
+        class: "enum"
+        state_class: ""
+        uom: ""
+        scale: 1
+        rule: 1
+        registers: [0x003B]
+        icon: "mdi:information"
+        range:
+          min: 0
+          max: 5
+        lookup:
+          - key: 0x0000
+            value: "Standby"
+          - key: 0x0001
+            value: "Self-test"
+          - key: 0x0002
+            value: "Normal"
+          - key: 0x0003
+            value: "Alarm"
+          - key: 0x0004
+            value: "Fault"
+
+      - name: "Power"
+        class: "power"
+        state_class: "measurement"
+        uom: "W"
+        scale: 1
+        rule: 2
+        registers: [0x00AF]
+
+      - name: "Grid Frequency"
+        class: "frequency"
+        state_class: "measurement"
+        uom: "Hz"
+        scale: 0.01
+        rule: 1
+        registers: [0x004F]
+
+      - name: "Current L1"
+        class: "current"
+        state_class: "measurement"
+        uom: "A"
+        scale: 0.01
+        rule: 2
+        registers: [0x00A4]
+
+      - name: "Current L2"
+        class: "current"
+        uom: "A"
+        scale: 0.01
+        rule: 2
+        registers: [0x00A5]
+
+      - name: "Inverter L1 Power"
+        class: "power"
+        state_class: "measurement"
+        uom: "W"
+        scale: 1
+        rule: 2
+        registers: [0x00AD]
+
+      - name: "Inverter L2 Power"
+        class: "power"
+        state_class: "measurement"
+        uom: "W"
+        scale: 1
+        rule: 2
+        registers: [0x00AE]
+
+      - name: "Load Frequency"
+        class: ""
+        state_class: "measurement"
+        uom: "Hz"
+        scale: 0.01
+        rule: 1
+        registers: [0x00C0]
+
+      - name: "DC Temperature"
+        class: "temperature"
+        state_class: "measurement"
+        uom: "°C"
+        scale: 0.1
+        rule: 2
+        offset: 1000
+        registers: [0x005A]
+
+      - name: "AC Temperature"
+        class: "temperature"
+        state_class: "measurement"
+        uom: "°C"
+        scale: 0.1
+        rule: 2
+        offset: 1000
+        registers: [0x005B]
+
+      - name: "Inverter ID"
+        class: ""
+        state_class: ""
+        uom: ""
+        scale: 1
+        rule: 5
+        registers: [0x0003, 0x0004, 0x0005, 0x0006, 0x0007]
+        isstr: true
+
+      - name: "Communication Board Version No."
+        class: ""
+        state_class: ""
+        uom: ""
+        scale: 1
+        rule: 1
+        registers: [0x000E]
+        isstr: true
+
+      - name: "Control Board Version No."
+        class: ""
+        state_class: ""
+        uom: ""
+        scale: 1
+        rule: 1
+        registers: [0x000D]
+        isstr: true
+
+      - name: "Grid"
+        update_interval: 30
+        platform: "binary_sensor"
+        device_class: power
+        state_class: ""
+        uom: ""
+        rule: 1
+        registers: [0x00C2]
+        icon: "mdi:transmission-tower"
+
+      - name: "Generator"
+        update_interval: 30
+        platform: "binary_sensor"
+        device_class: power
+        state_class: ""
+        uom: ""
+        rule: 1
+        registers: [0x00A6]
+
+      - name: "Generator Power"
+        class: "power"
+        state_class: "measurement"
+        uom: "W"
+        scale: 1
+        rule: 1
+        registers: [0x00A6]
+
+      - name: "Work Mode"
+        class: "enum"
+        state_class: ""
+        uom: ""
+        scale: 1
+        rule: 3
+        registers: [0x00F4, 0x00F7]
+        lookup:
+          - key: 0
+            value: "Selling First"
+          - key: 1
+            value: "Zero-Export to Load&Solar Sell"
+          - key: 2
+            value: "Zero-Export to Home&Solar Sell"
+          - key: 3
+            value: "Zero-Export to Load"
+          - key: 4
+            value: "Zero-Export to Home"
+        icon: "mdi:home-lightning-bolt"
+
+  - group: Alert
+    items:
+      - name: "Alert"
+        class: ""
+        state_class: ""
+        uom: ""
+        scale: 1
+        rule: 6
+        registers: [0x0065, 0x0066, 0x0067, 0x0068, 0x0069, 0x006A]
+
+  - group: Time of Use
+    items:
+      - name: "Program 1 Time"
+        update_interval: 300
+        platform: "time"
+        state_class: measurement
+        uom: ""
+        scale: 1
+        rule: 9
+        registers: [0x00FA]
+        range:
+          min: 0000
+          max: 2359
+        icon: mdi:sun-clock
+
+      - name: "Program 2 Time"
+        update_interval: 300
+        platform: "time"
+        state_class: measurement
+        uom: ""
+        scale: 1
+        rule: 9
+        registers: [0x00FB]
+        range:
+          min: 0000
+          max: 2359
+        icon: mdi:sun-clock
+
+      - name: "Program 3 Time"
+        update_interval: 300
+        platform: "time"
+        state_class: measurement
+        uom: ""
+        scale: 1
+        rule: 9
+        registers: [0x00FC]
+        range:
+          min: 0000
+          max: 2359
+        icon: mdi:sun-clock
+
+      - name: "Program 4 Time"
+        update_interval: 300
+        platform: "time"
+        state_class: measurement
+        uom: ""
+        scale: 1
+        rule: 9
+        registers: [0x00FD]
+        range:
+          min: 0000
+          max: 2359
+        icon: mdi:sun-clock
+
+      - name: "Program 5 Time"
+        update_interval: 300
+        platform: "time"
+        state_class: measurement
+        uom: ""
+        scale: 1
+        rule: 9
+        registers: [0x00FE]
+        range:
+          min: 0000
+          max: 2359
+        icon: mdi:sun-clock
+
+      - name: "Program 6 Time"
+        update_interval: 300
+        platform: "time"
+        state_class: measurement
+        uom: ""
+        scale: 1
+        rule: 9
+        registers: [0x00FF]
+        range:
+          min: 0000
+          max: 2359
+        icon: mdi:sun-clock
+
+      - name: "Program 1 Power"
+        update_interval: 300
+        platform: number
+        class: "power"
+        state_class: measurement
+        uom: "W"
+        scale: 1
+        rule: 1
+        registers: [0x0100]
+        range:
+          min: 0000
+          max: 12000
+        icon: mdi:sun-clock
+
+      - name: "Program 2 Power"
+        update_interval: 300
+        platform: number
+        class: "power"
+        state_class: measurement
+        uom: "W"
+        scale: 1
+        rule: 1
+        registers: [0x0101]
+        range:
+          min: 0000
+          max: 12000
+        icon: mdi:sun-clock
+
+      - name: "Program 3 Power"
+        update_interval: 300
+        platform: number
+        class: "power"
+        state_class: measurement
+        uom: "W"
+        scale: 1
+        rule: 1
+        registers: [0x0102]
+        range:
+          min: 0000
+          max: 12000
+        icon: mdi:sun-clock
+
+      - name: "Program 4 Power"
+        update_interval: 300
+        platform: number
+        class: "power"
+        state_class: measurement
+        uom: "W"
+        scale: 1
+        rule: 1
+        registers: [0x0103]
+        range:
+          min: 0000
+          max: 12000
+        icon: mdi:sun-clock
+
+      - name: "Program 5 Power"
+        update_interval: 300
+        platform: number
+        class: "power"
+        state_class: measurement
+        uom: "W"
+        scale: 1
+        rule: 1
+        registers: [0x0104]
+        range:
+          min: 0000
+          max: 12000
+        icon: mdi:sun-clock
+
+      - name: "Program 6 Power"
+        update_interval: 300
+        platform: number
+        class: "power"
+        state_class: measurement
+        uom: "W"
+        scale: 1
+        rule: 1
+        registers: [0x0105]
+        range:
+          min: 0000
+          max: 12000
+        icon: mdi:sun-clock
+
+      - name: "Program 1 SOC"
+        update_interval: 300
+        platform: number
+        state_class: measurement
+        uom: "%"
+        scale: 1
+        rule: 1
+        registers: [0x010C]
+        range:
+          min: 0
+          max: 100
+        icon: mdi:sun-clock
+
+      - name: "Program 2 SOC"
+        update_interval: 300
+        platform: number
+        state_class: measurement
+        uom: "%"
+        scale: 1
+        rule: 1
+        registers: [0x010D]
+        range:
+          min: 0
+          max: 100
+        icon: mdi:sun-clock
+
+      - name: "Program 3 SOC"
+        update_interval: 300
+        platform: number
+        state_class: measurement
+        uom: "%"
+        scale: 1
+        rule: 1
+        registers: [0x010E]
+        range:
+          min: 0
+          max: 100
+        icon: mdi:sun-clock
+
+      - name: "Program 4 SOC"
+        update_interval: 300
+        platform: number
+        state_class: measurement
+        uom: "%"
+        scale: 1
+        rule: 1
+        registers: [0x010F]
+        range:
+          min: 0
+          max: 100
+        icon: mdi:sun-clock
+
+      - name: "Program 5 SOC"
+        update_interval: 300
+        platform: number
+        state_class: measurement
+        uom: "%"
+        scale: 1
+        rule: 1
+        registers: [0x0110]
+        range:
+          min: 0
+          max: 100
+        icon: mdi:sun-clock
+
+      - name: "Program 6 SOC"
+        update_interval: 300
+        platform: number
+        state_class: measurement
+        uom: "%"
+        scale: 1
+        rule: 1
+        registers: [0x0111]
+        range:
+          min: 0
+          max: 100
+        icon: mdi:sun-clock
+
+      - name: "Program 1"
+        platform: switch
+        state_class: ""
+        uom: ""
+        scale: 1
+        rule: 1
+        mask: 1
+        registers: [0x0112]
+        icon: mdi:sun-clock
+
+      - name: "Program 2"
+        platform: switch
+        state_class: ""
+        uom: ""
+        scale: 1
+        rule: 1
+        mask: 1
+        registers: [0x0113]
+        icon: mdi:sun-clock
+
+      - name: "Program 3"
+        platform: switch
+        state_class: ""
+        uom: ""
+        scale: 1
+        rule: 1
+        mask: 1
+        registers: [0x0114]
+        icon: mdi:sun-clock
+
+      - name: "Program 4"
+        platform: switch
+        state_class: ""
+        uom: ""
+        scale: 1
+        rule: 1
+        mask: 1
+        registers: [0x0115]
+        icon: mdi:sun-clock
+
+      - name: "Program 5"
+        platform: switch
+        state_class: ""
+        uom: ""
+        scale: 1
+        rule: 1
+        mask: 1
+        registers: [0x0116]
+        icon: mdi:sun-clock
+
+      - name: "Program 6"
+        platform: switch
+        state_class: ""
+        uom: ""
+        scale: 1
+        rule: 1
+        mask: 1
+        registers: [0x0117]
+        icon: mdi:sun-clock
+
+      - name: "Time of Use"
+        update_interval: 300
+        platform: "switch"
+        state_class: ""
+        uom: ""
+        scale: 1
+        rule: 1
+        registers: [0x00F8]
+        value:
+          on: 0x00FF
+          off: 0x0000
